@@ -18,13 +18,14 @@ class QLearner:
         if np.random.rand() < self.epsilon:
             return np.random.choice(range(len(self.env.get_actions())))
         else:
-            return np.argmax(self.q1[state])
+            q = self.q1[state]
+            return np.argmax(q)
 
     def update_q_value(self, state, next_state, action, reward):
         self.q1[state][action] += self.alpha * (reward + self.gamma * np.max(self.q1[next_state]) - self.q1[state][action])
 
     def train(self, episodes):
-        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower() + ".npy"
+        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
         rewards = []
         steps = []
 
@@ -76,7 +77,7 @@ class DoubleQLearner(QLearner):
             self.q2[state][action] += self.alpha * (reward + self.gamma * self.q1[next_state][np.argmax(self.q2[next_state])] - self.q2[state][action])
 
     def train(self, episodes):
-        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower() + ".npy"
+        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
         rewards = []
         steps = []
 
@@ -135,7 +136,7 @@ class TripleQLearner(DoubleQLearner):
             self.q3[state][action] += self.alpha * (reward + self.gamma * min(self.q1[next_state][best_action], self.q2[next_state][best_action]) - self.q3[state][action])
 
     def train(self, episodes):
-        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower() + ".npy"
+        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
         rewards = []
         steps = []
 
@@ -196,7 +197,7 @@ class QuadrupleQLearner(TripleQLearner):
             self.q4[state][action] += self.alpha * (reward + self.gamma * min(self.q1[next_state][best_action], self.q2[next_state][best_action], self.q3[next_state][best_action]) - self.q4[state][action])
 
     def train(self, episodes):
-        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower() + ".npy"
+        save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
         rewards = []
         steps = []
 

@@ -91,3 +91,5 @@ class Model:
         for i in range(2, self.cols-2):
             self.bottom_cliff.add((i, 0))
             self.top_cliff.add((i, self.rows-1))
+
+        return self.agent_pos
