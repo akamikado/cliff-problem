@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 class QLearner:
-    def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99):
         self.env = env
         self.alpha = alpha
         self.gamma = gamma
@@ -47,7 +47,7 @@ class QLearner:
         return rewards, steps, [self.q1]
 
 class DoubleQLearner(QLearner):
-    def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99):
         super().__init__(env, alpha, gamma, epsilon, epsilon_decay)
         self.q2 = np.zeros((env.rows, env.cols, len(env.get_actions())))
 
@@ -92,7 +92,7 @@ class DoubleQLearner(QLearner):
         return rewards, steps, [self.q1, self.q2]
 
 class TripleQLearner(DoubleQLearner):
-    def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99):
         super().__init__(env, alpha, gamma, epsilon, epsilon_decay)
         self.q3 = np.zeros((env.rows, env.cols, len(env.get_actions())))
 
@@ -145,7 +145,7 @@ class TripleQLearner(DoubleQLearner):
         return rewards, steps, [self.q1, self.q2, self.q3]
 
 class QuadrupleQLearner(TripleQLearner):
-    def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99):
         super().__init__(env, alpha, gamma, epsilon, epsilon_decay)
         self.q4 = np.zeros((env.rows, env.cols, len(env.get_actions())))
 
