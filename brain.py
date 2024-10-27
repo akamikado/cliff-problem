@@ -10,7 +10,7 @@ class QLearner:
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
         if q_values is None:
-            self.q1 = np.zeros((env.rows, env.cols, len(env.get_actions())))
+            self.q1 = np.zeros((env.cols, env.rows, len(env.get_actions())))
         else:
             self.q1 = np.load(q_values)['Q1']
 
@@ -49,7 +49,7 @@ class QLearner:
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
-                np.save(save_file_name, Q1=self.q1)
+                np.savez(save_file_name, Q1=self.q1)
 
         return rewards, steps, [self.q1]
 
@@ -100,7 +100,7 @@ class DoubleQLearner(QLearner):
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
-                np.save(save_file_name, Q1=self.q1, Q2=self.q2)
+                np.savez(save_file_name, Q1=self.q1, Q2=self.q2)
 
         return rewards, steps, [self.q1, self.q2]
 
@@ -159,7 +159,7 @@ class TripleQLearner(DoubleQLearner):
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
-                np.save(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3)
+                np.savez(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3)
 
         return rewards, steps, [self.q1, self.q2, self.q3]
 
@@ -220,6 +220,6 @@ class QuadrupleQLearner(TripleQLearner):
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
-                np.save(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3, Q4=self.q4)
+                np.savez(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3, Q4=self.q4)
 
         return rewards, steps, [self.q1, self.q2, self.q3, self.q4]

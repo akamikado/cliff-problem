@@ -29,14 +29,12 @@ class Model:
         will_slip = random.random() < 0.3
 
         if will_slip:
-            slip_direction = random.choice([-1, 1])
-            new_pos = (self.agent_pos[0], self.agent_pos[1] + slip_direction)
+            slip = random.choice([-1, 1])
+            new_pos = (new_pos[0], new_pos[1] + slip)
 
-        self.agent_pos = (self.agent_pos[0], max(0, min(self.rows - 1, self.agent_pos[1])))
-        if new_pos[0] < 0 or new_pos[0] >= self.cols or new_pos[1] < 0 or new_pos[1] >= self.rows:
-            reward = -100
-            done = True
-        elif new_pos in self.top_cliff or new_pos in self.bottom_cliff:
+        new_pos = (max(0, min(self.cols-1, new_pos[0])), max(0, min(self.rows - 1, new_pos[1])))
+
+        if new_pos in self.top_cliff or new_pos in self.bottom_cliff:
             reward = -100
             done = True
         elif self.is_path_blocked():
