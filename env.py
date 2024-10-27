@@ -3,8 +3,8 @@ import random
 import math
 
 class Model:
-    up = {'x': -1, 'y': 0}
-    down = {'x': 1, 'y': 0}
+    up = {'x': 1, 'y': 0}
+    down = {'x': -1, 'y': 0}
     left = {'x': 0, 'y': -1}
     right = {'x': 0, 'y': 1}
 
@@ -29,8 +29,10 @@ class Model:
         will_slip = random.random() < 0.3
 
         if will_slip:
-            new_pos = (self.agent_pos[0], self.agent_pos[1] + random.choice([-1, 1]))
+            slip_direction = random.choice([-1, 1])
+            new_pos = (self.agent_pos[0], self.agent_pos[1] + slip_direction)
 
+        self.agent_pos = (self.agent_pos[0], max(0, min(self.rows - 1, self.agent_pos[1])))
         if new_pos[0] < 0 or new_pos[0] >= self.cols or new_pos[1] < 0 or new_pos[1] >= self.rows:
             reward = -100
             done = True
