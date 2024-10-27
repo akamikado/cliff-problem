@@ -21,10 +21,12 @@ class QLearner:
 
     def train(self, episodes):
         rewards = []
+        steps = []
 
         for i in range(episodes):
             state = self.env.reset()
             total_reward = 0
+            steps_taken = 0
             done = False
             while not done:
                 action = self.epsilon_greedy(state)
@@ -32,16 +34,17 @@ class QLearner:
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
                 total_reward += reward
+                steps_taken += 1
 
             rewards.append(total_reward)
-            total_reward = 0
+            steps.append(steps_taken)
 
             self.epsilon *= self.epsilon_decay
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
 
-        return rewards, [self.q1]
+        return rewards, steps, [self.q1]
 
 class DoubleQLearner(QLearner):
     def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
@@ -63,10 +66,12 @@ class DoubleQLearner(QLearner):
 
     def train(self, episodes):
         rewards = []
+        steps = []
 
         for i in range(episodes):
             state = self.env.reset()
             total_reward = 0
+            steps_taken = 0
             done = False
             while not done:
                 action = self.epsilon_greedy(state)
@@ -74,16 +79,17 @@ class DoubleQLearner(QLearner):
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
                 total_reward += reward
+                steps_taken += 1
 
             rewards.append(total_reward)
-            total_reward = 0
+            steps.append(steps_taken)
 
             self.epsilon *= self.epsilon_decay
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
 
-        return rewards, [self.q1, self.q2]
+        return rewards, steps, [self.q1, self.q2]
 
 class TripleQLearner(DoubleQLearner):
     def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
@@ -113,10 +119,12 @@ class TripleQLearner(DoubleQLearner):
 
     def train(self, episodes):
         rewards = []
+        steps = []
 
         for i in range(episodes):
             state = self.env.reset()
             total_reward = 0
+            steps_taken = 0
             done = False
             while not done:
                 action = self.epsilon_greedy(state)
@@ -124,16 +132,17 @@ class TripleQLearner(DoubleQLearner):
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
                 total_reward += reward
+                steps_taken += 1
 
             rewards.append(total_reward)
-            total_reward = 0
+            steps.append(steps_taken)
 
             self.epsilon *= self.epsilon_decay
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
 
-        return rewards, [self.q1, self.q2, self.q3]
+        return rewards, steps, [self.q1, self.q2, self.q3]
 
 class QuadrupleQLearner(TripleQLearner):
     def __init__(self, env, alpha=0.1, gamma=0.5, epsilon=0.1, epsilon_decay=0.99):
@@ -165,10 +174,12 @@ class QuadrupleQLearner(TripleQLearner):
 
     def train(self, episodes):
         rewards = []
+        steps = []
 
         for i in range(episodes):
             state = self.env.reset()
             total_reward = 0
+            steps_taken = 0
             done = False
             while not done:
                 action = self.epsilon_greedy(state)
@@ -176,13 +187,14 @@ class QuadrupleQLearner(TripleQLearner):
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
                 total_reward += reward
+                steps_taken += 1
 
             rewards.append(total_reward)
-            total_reward = 0
+            steps.append(steps_taken)
 
             self.epsilon *= self.epsilon_decay
 
             if i % 500 == 0:
                 print(f"Episode {i} completed.")
 
-        return rewards, [self.q1, self.q2, self.q3, self.q4]
+        return rewards, steps, [self.q1, self.q2, self.q3, self.q4]
