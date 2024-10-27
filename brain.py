@@ -9,7 +9,7 @@ class QLearner:
         self.gamma = gamma
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
-        if q_values is not None:
+        if q_values is None:
             self.q1 = np.zeros((env.rows, env.cols, len(env.get_actions())))
         else:
             self.q1 = np.load(q_values)['Q1']
@@ -56,7 +56,7 @@ class DoubleQLearner(QLearner):
     def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
         super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values)
         self.algo_name = "Double Q-Learning"
-        if q_values is not None:
+        if q_values is None:
             self.q2 = np.zeros((env.rows, env.cols, len(env.get_actions())))
         else:
             self.q2 = np.load(q_values)['Q2']
@@ -107,7 +107,7 @@ class TripleQLearner(DoubleQLearner):
     def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
         super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values)
         self.algo_name = "Triple Q-Learning"
-        if q_values is not None:
+        if q_values is None:
             self.q3 = np.zeros((env.rows, env.cols, len(env.get_actions())))
         else:
             self.q3 = np.load(q_values)['Q3']
@@ -166,7 +166,7 @@ class QuadrupleQLearner(TripleQLearner):
     def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
         super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values)
         self.algo_name = "Quadruple Q-Learning"
-        if q_values is not None:
+        if q_values is None:
             self.q4 = np.zeros((env.rows, env.cols, len(env.get_actions())))
         else:
             self.q4 = np.load(q_values)['Q4']
