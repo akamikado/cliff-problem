@@ -46,9 +46,11 @@ def main(args):
     steps = []
 
     for learner in learners:
+        print(f"Training {learner.algo_name}")
         start_time = time.time()
         learner_rewards, learner_steps, _ = learner.train(episodes)
         end_time = time.time()
+        print(f"{learner.algo_name} took {end_time - start_time:.2f} seconds to train.")
         elapsed_time = end_time - start_time
 
         with open('results.txt', 'a') as f:

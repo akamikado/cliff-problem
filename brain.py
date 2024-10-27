@@ -90,7 +90,7 @@ class DoubleQLearner(QLearner):
                 action_idx = self.epsilon_greedy(state)
                 action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
-                self.update_q_value(state, next_state, action, reward)
+                self.update_q_value(state, next_state, action_idx, reward)
                 state = next_state
                 total_reward += reward
                 steps_taken += 1
@@ -150,7 +150,7 @@ class TripleQLearner(DoubleQLearner):
                 action_idx = self.epsilon_greedy(state)
                 action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
-                self.update_q_value(state, next_state, action, reward)
+                self.update_q_value(state, next_state, action_idx, reward)
                 state = next_state
                 total_reward += reward
                 steps_taken += 1
@@ -212,7 +212,7 @@ class QuadrupleQLearner(TripleQLearner):
                 action_idx = self.epsilon_greedy(state)
                 action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
-                self.update_q_value(state, next_state, action, reward)
+                self.update_q_value(state, next_state, action_idx, reward)
                 state = next_state
                 total_reward += reward
                 steps_taken += 1
