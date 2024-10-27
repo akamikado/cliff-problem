@@ -87,7 +87,8 @@ class DoubleQLearner(QLearner):
             steps_taken = 0
             done = False
             while not done:
-                action = self.epsilon_greedy(state)
+                action_idx = self.epsilon_greedy(state)
+                action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
@@ -146,7 +147,8 @@ class TripleQLearner(DoubleQLearner):
             steps_taken = 0
             done = False
             while not done:
-                action = self.epsilon_greedy(state)
+                action_idx = self.epsilon_greedy(state)
+                action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
@@ -207,7 +209,8 @@ class QuadrupleQLearner(TripleQLearner):
             steps_taken = 0
             done = False
             while not done:
-                action = self.epsilon_greedy(state)
+                action_idx = self.epsilon_greedy(state)
+                action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
                 self.update_q_value(state, next_state, action, reward)
                 state = next_state
