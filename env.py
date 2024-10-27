@@ -11,7 +11,7 @@ class Model:
     def __init__(self, cols=50, rows=30):
         self.rows = rows
         self.cols = cols
-        self.grid = np.zeroes((cols, rows))
+        self.grid = np.zeros((cols, rows))
         self.bottom_cliff = set()
         self.top_cliff = set()
         for i in range(2, cols-2):
