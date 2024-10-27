@@ -4,6 +4,7 @@ from brain import QLearner, DoubleQLearner, TripleQLearner, QuadrupleQLearner
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+import argparse
 
 def plot_cumulative_rewards(algorithm_names, rewards_lists):
     plt.figure(figsize=(10, 6))
@@ -58,3 +59,12 @@ def main(args):
 
     plot_cumulative_rewards([learner.algo_name for learner in learners], rewards)
     plot_steps_per_episode([learner.algo_name for learner in learners], steps)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description= "Grid Problem")
+
+    parser.add_argument('--episodes', type=int, default=1000, help='Number of episodes the model should run for')
+
+    args = parser.parse_args()
+
+    main(args)
