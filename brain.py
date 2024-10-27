@@ -48,7 +48,7 @@ class QLearner:
 
             self.epsilon *= self.epsilon_decay
 
-            if i % 500 == 0:
+            if i % 100 == 0:
                 print(f"Episode {i} completed.")
                 np.savez(save_file_name, Q1=self.q1)
 
@@ -100,8 +100,10 @@ class DoubleQLearner(QLearner):
 
             self.epsilon *= self.epsilon_decay
 
-            if i % 500 == 0:
+            if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2)
 
         return rewards, steps, [self.q1, self.q2]
@@ -160,8 +162,10 @@ class TripleQLearner(DoubleQLearner):
 
             self.epsilon *= self.epsilon_decay
 
-            if i % 500 == 0:
+            if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3)
 
         return rewards, steps, [self.q1, self.q2, self.q3]
@@ -222,8 +226,10 @@ class QuadrupleQLearner(TripleQLearner):
 
             self.epsilon *= self.epsilon_decay
 
-            if i % 500 == 0:
+            if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3, Q4=self.q4)
 
         return rewards, steps, [self.q1, self.q2, self.q3, self.q4]
