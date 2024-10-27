@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import time
 
 class QLearner:
     def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
@@ -100,8 +101,7 @@ class DoubleQLearner(QLearner):
 
             self.epsilon *= self.epsilon_decay
 
-            if i % 100 == 0:
-                print(f"Episode {i} completed.")
+            print(f"Episode {i} completed.")
 
             if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2)

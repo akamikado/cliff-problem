@@ -8,7 +8,7 @@ class Model:
     left = {'x': 0, 'y': -1}
     right = {'x': 0, 'y': 1}
 
-    def __init__(self, cols=50, rows=30):
+    def __init__(self, cols=100, rows=25):
         self.rows = rows
         self.cols = cols
         self.grid = np.zeros((cols, rows))
@@ -50,6 +50,8 @@ class Model:
 
         self.agent_pos = new_pos
 
+        self.grow_cliff()
+
         return self.agent_pos, reward, done
 
     def is_path_blocked(self):
@@ -79,8 +81,10 @@ class Model:
                 elif (i, j) in self.bottom_cliff and (i, j+1) not in self.bottom_cliff:
                     bottom_possible_boxes.append((i, j+1))
 
-        self.top_cliff.add(random.choice(top_possible_boxes))
-        self.bottom_cliff.add(random.choice(bottom_possible_boxes))
+        if top_possible_boxes:
+            self.top_cliff.add(random.choice(top_possible_boxes))
+        if bottom_possible_boxes:
+            self.bottom_cliff.add(random.choice(bottom_possible_boxes))
 
     def reset(self):
         self.goal = random.choice([(i, j) for j in range(self.rows) for i in range(self.cols-2, self.cols)])
@@ -93,3 +97,25 @@ class Model:
             self.top_cliff.add((i, self.rows-1))
 
         return self.agent_pos
+
+    def render(self):
+        grid_display = np.full((self.cols, self.rows), '.', dtype=str)
+
+        # Mark the goal
+        goal_x, goal_y = self.goal
+        grid_display[goal_x, goal_y] = 'G'
+
+        # Mark the cliffs
+        for (x, y) in self.top_cliff:
+            grid_display[x, y] = '#'
+        for (x, y) in self.bottom_cliff:
+            grid_display[x, y] = '#'
+
+        # Mark the agent's position
+        agent_x, agent_y = self.agent_pos
+        grid_display[agent_x, agent_y] = 'A'
+
+        # Print grid display
+        for row in grid_display.T:
+            print(' '.join(row))
+        print("\n")
