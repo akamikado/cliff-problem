@@ -18,7 +18,7 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists):
     plt.title('Cumulative rewards vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=300)
+    plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=450)
 
 def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500):
     plt.figure(figsize=(10, 6))
@@ -32,7 +32,7 @@ def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500):
     plt.title(f'Sum of Rewards per Episode (Smoothed over {window_size} episodes)')
     plt.legend()
     plt.grid()
-    plt.savefig("smoothed_rewards_per_episode.png", format="png", dpi=300)
+    plt.savefig("smoothed_rewards_per_episode.png", format="png", dpi=450)
 
 def plot_steps_per_episode(algorithm_names, steps_list, window_size=500):
     plt.figure(figsize=(10, 6))

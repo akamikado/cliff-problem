@@ -24,6 +24,14 @@ class QLearner:
     def update_q_value(self, state, next_state, action, reward):
         self.q1[state][action] += self.alpha * (reward + self.gamma * np.max(self.q1[next_state]) - self.q1[state][action])
 
+    def save_episode_rewards(self, rewards):
+        with open(f'{self.algo_name.replace(' ', '_').lower()}_rewards.csv', 'a') as f:
+            f.write(f"{rewards}\n")
+
+    def save_episode_steps(self, steps):
+        with open(f'{self.algo_name.replace(' ', '_').lower()}_steps.csv', 'a') as f:
+            f.write(f"{steps}\n")
+
     def train(self, episodes):
         save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
         rewards = []
@@ -50,6 +58,9 @@ class QLearner:
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            self.save_episode_rewards(total_reward)
+            self.save_episode_steps(steps_taken)
 
             if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1)
@@ -104,6 +115,9 @@ class DoubleQLearner(QLearner):
             
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            self.save_episode_rewards(total_reward)
+            self.save_episode_steps(steps_taken)
 
             if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2)
@@ -166,6 +180,9 @@ class TripleQLearner(DoubleQLearner):
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            self.save_episode_rewards(total_reward)
+            self.save_episode_steps(steps_taken)
 
             if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3)
@@ -230,6 +247,9 @@ class QuadrupleQLearner(TripleQLearner):
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            self.save_episode_rewards(total_reward)
+            self.save_episode_steps(steps_taken)
 
             if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2, Q3=self.q3, Q4=self.q4)
