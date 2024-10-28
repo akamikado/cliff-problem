@@ -1,6 +1,5 @@
 import numpy as np
 import random
-import time
 
 class QLearner:
     def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
@@ -43,7 +42,6 @@ class QLearner:
                 state = next_state
                 total_reward += reward
                 steps_taken += 1
-                time.sleep(0.15)
 
             rewards.append(total_reward)
             steps.append(steps_taken)
