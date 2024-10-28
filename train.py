@@ -10,6 +10,20 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_lists):
+        cum_rewards = np.cumsum(rewards)
+        plt.plot(cum_rewards, label=name)
+
+    plt.xlabel('Episodes')
+    plt.ylabel('Cumulative rewards')
+    plt.title('Cumulative rewards vs Episodes')
+    plt.legend()
+    plt.grid()
+    plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=300)
+
+def plot_rewards_per_episode(algorithm_names, rewards_lists):
+    plt.figure(figsize=(10, 6))
+    
+    for name, rewards in zip(algorithm_names, rewards_lists):
         plt.plot(rewards, label=name)
 
     plt.xlabel('Episodes')
@@ -17,7 +31,7 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists):
     plt.title('Sum of rewards during episode vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("rewards_vs_episodes.png", format="png", dpi=300)
+    plt.savefig("rewards_per_episode_vs_episodes.png", format="png", dpi=300)
 
 def plot_steps_per_episode(algorithm_names, steps_list):
     plt.figure(figsize=(10, 6))
@@ -56,6 +70,7 @@ def main(args):
         steps.append(learner_steps)
 
     plot_cumulative_rewards([learner.algo_name for learner in learners], rewards)
+    plot_rewards_per_episode([learner.algo_name for learner in learners], rewards)
     plot_steps_per_episode([learner.algo_name for learner in learners], steps)
 
 if __name__ == "__main__":

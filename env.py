@@ -45,7 +45,7 @@ class Model:
             done = True
         else:
             new_pos_dist = math.sqrt((new_pos[0]-self.goal[0])**2 + (new_pos[1]-self.goal[1])**2)
-            reward = -0.5 if new_pos_dist >= self.agent_dist else 0.25
+            reward = -0.5 if new_pos_dist >= self.agent_dist else 0.5
             done = False
 
         self.agent_pos = new_pos
