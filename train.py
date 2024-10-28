@@ -13,8 +13,8 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists):
         plt.plot(rewards, label=name)
 
     plt.xlabel('Episodes')
-    plt.ylabel('Cumulative Rewards')
-    plt.title('Cumulative Rewards vs Episodes')
+    plt.ylabel('Sum of rewards during episode')
+    plt.title('Sum of rewards during episode vs Episodes')
     plt.legend()
     plt.grid()
     plt.savefig("rewards_vs_episodes.png", format="png", dpi=300)
