@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-def plot_cumulative_rewards(algorithm_names, rewards_lists):
+def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_lists):
@@ -14,9 +14,9 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists):
     plt.title('Cumulative rewards vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=450)
+    plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=dpi)
 
-def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500):
+def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi=300):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_list):
@@ -28,9 +28,9 @@ def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500):
     plt.title(f'Sum of Rewards per Episode (Smoothed over {window_size} episodes)')
     plt.legend()
     plt.grid()
-    plt.savefig("smoothed_rewards_per_episode.png", format="png", dpi=450)
+    plt.savefig("smoothed_rewards_per_episode.png", format="png", dpi=dpi)
 
-def plot_steps_per_episode(algorithm_names, steps_list, window_size=500):
+def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300):
     plt.figure(figsize=(10, 6))
     
     for name, steps in zip(algorithm_names, steps_list):
@@ -42,10 +42,12 @@ def plot_steps_per_episode(algorithm_names, steps_list, window_size=500):
     plt.title('Steps per Episode vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("steps_vs_episodes.png", format="png", dpi=300)
+    plt.savefig("steps_vs_episodes.png", format="png", dpi=dpi)
 
 
 if __name__ == "__main__":
+    dpi = int(input("Enter the DPI for the plots: "))
+    window_size = int(input("Enter the window size for smoothing: "))
     algorithm_names = ['Q-Learning', 'Double Q-Learning', 'Triple Q-Learning', 'Quadruple Q-Learning']
     rewards_lists = []
     file_names = ['q-learning_rewards.csv', 'double_q_learning_rewards.csv', 'triple_q_learning_rewards.csv', 'quadruple_q_learning_rewards.csv']
@@ -57,6 +59,6 @@ if __name__ == "__main__":
                 rewards.append(float(row[0]))
             rewards_lists.append(rewards)
 
-    plot_cumulative_rewards(algorithm_names, rewards_lists)
-    plot_rewards_per_episode(algorithm_names, rewards_lists)
-    plot_steps_per_episode(algorithm_names, rewards_lists)
+    plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=dpi)
+    plot_rewards_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi)
+    plot_steps_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi)
