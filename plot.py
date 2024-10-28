@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300):
+def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300, save=True):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_lists):
@@ -14,9 +14,12 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300):
     plt.title('Cumulative rewards vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=dpi)
+    if save:
+        plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=dpi)
+    else:
+        plt.show()
 
-def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi=300):
+def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi=300, save=True):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_list):
@@ -24,13 +27,16 @@ def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi
         plt.plot(smoothed_rewards, label=name)
 
     plt.xlabel('Episodes')
-    plt.ylabel('Smoothed Rewards per Episode')
-    plt.title(f'Sum of Rewards per Episode (Smoothed over {window_size} episodes)')
+    plt.ylabel('Sum of Rewards per Episode')
+    plt.title(f'Sum of Rewards per Episode vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("smoothed_rewards_per_episode.png", format="png", dpi=dpi)
+    if save:
+        plt.savefig("rewards_per_episode_vs_epsiodes.png", format="png", dpi=dpi)
+    else:
+        plt.show()
 
-def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300):
+def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300, save=True):
     plt.figure(figsize=(10, 6))
     
     for name, steps in zip(algorithm_names, steps_list):
@@ -42,7 +48,10 @@ def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300
     plt.title('Steps per Episode vs Episodes')
     plt.legend()
     plt.grid()
-    plt.savefig("steps_vs_episodes.png", format="png", dpi=dpi)
+    if save:
+        plt.savefig("steps_vs_episodes.png", format="png", dpi=dpi)
+    else:
+        plt.show()
 
 
 if __name__ == "__main__":
@@ -50,15 +59,22 @@ if __name__ == "__main__":
     window_size = int(input("Enter the window size for smoothing: "))
     algorithm_names = ['Q-Learning', 'Double Q-Learning', 'Triple Q-Learning', 'Quadruple Q-Learning']
     rewards_lists = []
-    file_names = ['q-learning_rewards.csv', 'double_q_learning_rewards.csv', 'triple_q_learning_rewards.csv', 'quadruple_q_learning_rewards.csv']
+    steps_lists = []
+    file_names = ['q-learning_', 'double_q-learning_', 'triple_q-learning_', 'quadruple_q-learning_']
     for file in file_names:
-        with open(file, 'r') as f:
+        with open(file + 'rewards.csv', 'r') as f:
             csvreader = csv.reader(f)
             rewards = []
             for row in csvreader:
                 rewards.append(float(row[0]))
             rewards_lists.append(rewards)
+        with open(file + 'steps.csv', 'r') as f:
+            csvreader = csv.reader(f)
+            steps = []
+            for row in csvreader:
+                steps.append(float(row[0]))
+            steps_lists.append(steps)
 
-    plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=dpi)
-    plot_rewards_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi)
-    plot_steps_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi)
+    plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=dpi, save=False)
+    plot_rewards_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi, save=False)
+    plot_steps_per_episode(algorithm_names, steps_lists, window_size=window_size, dpi=dpi, save=False)
