@@ -10,9 +10,7 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_lists):
-        # Calculate cumulative rewards
-        cumulative_rewards = np.cumsum(rewards)
-        plt.plot(cumulative_rewards, label=name)
+        plt.plot(rewards, label=name)
 
     plt.xlabel('Episodes')
     plt.ylabel('Cumulative Rewards')
@@ -25,9 +23,7 @@ def plot_steps_per_episode(algorithm_names, steps_list):
     plt.figure(figsize=(10, 6))
     
     for name, steps in zip(algorithm_names, steps_list):
-        # Calculate cumulative rewards
-        steps_per_episode = np.cumsum(steps)
-        plt.plot(steps_per_episode, label=name)
+        plt.plot(steps, label=name)
 
     plt.xlabel('Episodes')
     plt.ylabel('Steps per Episode')

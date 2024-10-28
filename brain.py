@@ -51,6 +51,8 @@ class QLearner:
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
+
+            if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1)
 
         return rewards, steps, [self.q1]
@@ -100,8 +102,9 @@ class DoubleQLearner(QLearner):
             steps.append(steps_taken)
 
             self.epsilon *= self.epsilon_decay
-
-            print(f"Episode {i} completed.")
+            
+            if i % 100 == 0:
+                print(f"Episode {i} completed.")
 
             if i % 1000 == 0:
                 np.savez(save_file_name, Q1=self.q1, Q2=self.q2)
