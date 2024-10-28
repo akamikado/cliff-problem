@@ -36,6 +36,7 @@ class QLearner:
             steps_taken = 0
             done = False
             while not done:
+                self.env.render()
                 action_idx = self.epsilon_greedy(state)
                 action = self.env.get_actions()[action_idx]
                 next_state, reward, done = self.env.step(action)
@@ -43,6 +44,7 @@ class QLearner:
                 state = next_state
                 total_reward += reward
                 steps_taken += 1
+                time.sleep(0.15)
 
             rewards.append(total_reward)
             steps.append(steps_taken)
