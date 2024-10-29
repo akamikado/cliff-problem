@@ -41,7 +41,7 @@ if __name__ == "__main__":
     parser.add_argument('--dq-values', type=str, default=None, help='Number of Q values to use for DoubleQLearner')
     parser.add_argument('--tq-values', type=str, default=None, help='Number of Q values to use for TripleQLearner')
     parser.add_argument('--qq-values', type=str, default=None, help='Number of Q values to use for QuadrupleQLearner')
-    parser.add_argument('--alpha', type=int, default=0.1, help='Whether to plot the results')
+    parser.add_argument('--alpha', type=float, default=0.1, help='Whether to plot the results')
 
     args = parser.parse_args()
 
