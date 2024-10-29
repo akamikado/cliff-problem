@@ -57,6 +57,7 @@ def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300
 if __name__ == "__main__":
     dpi = int(input("Enter the DPI for the plots: "))
     window_size = int(input("Enter the window size for smoothing: "))
+    save = input("Do you want to save the plots? (y/n): ").lower() == 'y'
     algorithm_names = ['Q-Learning', 'Double Q-Learning', 'Triple Q-Learning', 'Quadruple Q-Learning']
     rewards_lists = []
     steps_lists = []
@@ -75,6 +76,6 @@ if __name__ == "__main__":
                 steps.append(float(row[0]))
             steps_lists.append(steps)
 
-    plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=dpi, save=False)
-    plot_rewards_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi, save=False)
-    plot_steps_per_episode(algorithm_names, steps_lists, window_size=window_size, dpi=dpi, save=False)
+    plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=dpi, save=save)
+    plot_rewards_per_episode(algorithm_names, rewards_lists, window_size=window_size, dpi=dpi, save=save)
+    plot_steps_per_episode(algorithm_names, steps_lists, window_size=window_size, dpi=dpi, save=save)
