@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300, save=True):
+def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300, save=True, save_folder=None):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_lists):
@@ -15,11 +15,14 @@ def plot_cumulative_rewards(algorithm_names, rewards_lists, dpi=300, save=True):
     plt.legend()
     plt.grid()
     if save:
-        plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=dpi)
+        if save_folder:
+            plt.savefig(f"{save_folder}/cumulative_rewards_vs_episodes.png", format="png", dpi=dpi)
+        else:
+            plt.savefig("cumulative_rewards_vs_episodes.png", format="png", dpi=dpi)
     else:
         plt.show()
 
-def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi=300, save=True):
+def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi=300, save=True, save_folder=None):
     plt.figure(figsize=(10, 6))
     
     for name, rewards in zip(algorithm_names, rewards_list):
@@ -32,11 +35,14 @@ def plot_rewards_per_episode(algorithm_names, rewards_list, window_size=500, dpi
     plt.legend()
     plt.grid()
     if save:
-        plt.savefig("rewards_per_episode_vs_epsiodes.png", format="png", dpi=dpi)
+        if save_folder:
+            plt.savefig(f"{save_folder}/rewards_per_episode_vs_episodes.png", format="png", dpi=dpi)
+        else:
+            plt.savefig("rewards_per_episode_vs_epsiodes.png", format="png", dpi=dpi)
     else:
         plt.show()
 
-def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300, save=True):
+def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300, save=True, save_folder=None):
     plt.figure(figsize=(10, 6))
     
     for name, steps in zip(algorithm_names, steps_list):
@@ -49,7 +55,10 @@ def plot_steps_per_episode(algorithm_names, steps_list, window_size=500, dpi=300
     plt.legend()
     plt.grid()
     if save:
-        plt.savefig("steps_vs_episodes.png", format="png", dpi=dpi)
+        if save_folder:
+            plt.savefig(f"{save_folder}/steps_vs_episodes.png", format="png", dpi=dpi)
+        else:
+            plt.savefig("steps_vs_episodes.png", format="png", dpi=dpi)
     else:
         plt.show()
 

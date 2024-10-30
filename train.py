@@ -4,11 +4,15 @@ from plot import plot_cumulative_rewards, plot_rewards_per_episode, plot_steps_p
 
 import time
 import argparse
+from datetime import datetime
+import os
 
 
 def main(args):
+    save_folder = f"results_{datetime.now().strftime('%Y-%m-%d_%H-%M')}"
+    os.makedirs(save_folder)
     env = Model()
-    learners = [QLearner(env, q_values=args.q_values, alpha=args.alpha, epsilon=args.epsilon), DoubleQLearner(env, q_values=args.dq_values, alpha=args.alpha, epsilon=args.epsilon), TripleQLearner(env, q_values=args.tq_values, alpha=args.alpha, epsilon=args.epsilon), QuadrupleQLearner(env, q_values=args.qq_values, alpha=args.alpha, epsilon=args.epsilon)]
+    learners = [QLearner(env, q_values=args.q_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder), DoubleQLearner(env, q_values=args.dq_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder), TripleQLearner(env, q_values=args.tq_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder), QuadrupleQLearner(env, q_values=args.qq_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder)]
 
     episodes = args.episodes
 
@@ -23,15 +27,15 @@ def main(args):
         print(f"{learner.algo_name} took {end_time - start_time:.2f} seconds to train.")
         elapsed_time = end_time - start_time
 
-        with open('results.txt', 'a') as f:
+        with open(f'{save_folder}/results.txt', 'a') as f:
             f.write(f"{learner.algo_name} took {elapsed_time:.2f} seconds to train.\n")
 
         rewards.append(learner_rewards)
         steps.append(learner_steps)
 
-    plot_cumulative_rewards([learner.algo_name for learner in learners], rewards)
-    plot_rewards_per_episode([learner.algo_name for learner in learners], rewards)
-    plot_steps_per_episode([learner.algo_name for learner in learners], steps)
+    plot_cumulative_rewards([learner.algo_name for learner in learners], rewards, save_folder=save_folder)
+    plot_rewards_per_episode([learner.algo_name for learner in learners], rewards, window_size=1000, save_folder=save_folder)
+    plot_steps_per_episode([learner.algo_name for learner in learners], steps, window_size=1000, save_folder=save_folder)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description= "Grid Problem")

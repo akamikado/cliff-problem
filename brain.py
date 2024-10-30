@@ -2,13 +2,14 @@ import numpy as np
 import random
 
 class QLearner:
-    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None, save_folder=None):
         self.algo_name = "Q-Learning"
         self.env = env
         self.alpha = alpha
         self.gamma = gamma
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
+        self.save_folder = save_folder
         if q_values is None:
             self.q1 = np.zeros((env.cols, env.rows, len(env.get_actions())))
         else:
@@ -25,12 +26,20 @@ class QLearner:
         self.q1[state][action] += self.alpha * (reward + self.gamma * np.max(self.q1[next_state]) - self.q1[state][action])
 
     def save_episode_rewards(self, rewards):
-        with open(f'{self.algo_name.replace(' ', '_').lower()}_rewards.csv', 'a') as f:
-            f.write(f"{rewards}\n")
+        if self.save_folder:
+            with open(f'{self.save_folder}/{self.algo_name.replace(' ', '_').lower()}_rewards.csv', 'a') as f:
+                f.write(f"{rewards}\n")
+        else:
+            with open(f'{self.algo_name.replace(' ', '_').lower()}_rewards.csv', 'a') as f:
+                f.write(f"{rewards}\n")
 
     def save_episode_steps(self, steps):
-        with open(f'{self.algo_name.replace(' ', '_').lower()}_steps.csv', 'a') as f:
-            f.write(f"{steps}\n")
+        if self.save_folder:
+            with open(f'{self.save_folder}/{self.algo_name.replace(' ', '_').lower()}_steps.csv', 'a') as f:
+                f.write(f"{steps}\n")
+        else:
+            with open(f'{self.algo_name.replace(' ', '_').lower()}_steps.csv', 'a') as f:
+                f.write(f"{steps}\n")
 
     def decay_epsilon(self):
         new_epsilon = self.epsilon * self.epsilon_decay
@@ -74,8 +83,8 @@ class QLearner:
         return rewards, steps, [self.q1]
 
 class DoubleQLearner(QLearner):
-    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
-        super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values)
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None, save_folder=None):
+        super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values, save_folder)
         self.algo_name = "Double Q-Learning"
         if q_values is None:
             self.q2 = np.zeros((env.cols, env.rows, len(env.get_actions())))
@@ -131,8 +140,8 @@ class DoubleQLearner(QLearner):
         return rewards, steps, [self.q1, self.q2]
 
 class TripleQLearner(DoubleQLearner):
-    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
-        super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values)
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None, save_folder=None):
+        super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values, save_folder)
         self.algo_name = "Triple Q-Learning"
         if q_values is None:
             self.q3 = np.zeros((env.cols, env.rows, len(env.get_actions())))
@@ -196,8 +205,8 @@ class TripleQLearner(DoubleQLearner):
         return rewards, steps, [self.q1, self.q2, self.q3]
 
 class QuadrupleQLearner(TripleQLearner):
-    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None):
-        super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values)
+    def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=0.99, q_values=None, save_folder=None):
+        super().__init__(env, alpha, gamma, epsilon, epsilon_decay, q_values, save_folder)
         self.algo_name = "Quadruple Q-Learning"
         if q_values is None:
             self.q4 = np.zeros((env.cols, env.rows, len(env.get_actions())))
