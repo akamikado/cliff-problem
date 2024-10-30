@@ -33,6 +33,7 @@ class Model:
             new_pos = (new_pos[0], new_pos[1] + slip)
 
         new_pos = (max(0, min(self.cols-1, new_pos[0])), max(0, min(self.rows - 1, new_pos[1])))
+        new_pos_dist = math.sqrt((new_pos[0]-self.goal[0])**2 + (new_pos[1]-self.goal[1])**2)
 
         if new_pos in self.top_cliff or new_pos in self.bottom_cliff:
             reward = -100
@@ -44,11 +45,11 @@ class Model:
             reward = 100
             done = True
         else:
-            new_pos_dist = math.sqrt((new_pos[0]-self.goal[0])**2 + (new_pos[1]-self.goal[1])**2)
             reward = -0.5 if new_pos_dist >= self.agent_dist else 0.5
             done = False
 
         self.agent_pos = new_pos
+        self.agent_dist = new_pos_dist
 
         self.grow_cliff()
 
