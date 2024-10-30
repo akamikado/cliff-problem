@@ -9,7 +9,7 @@ import os
 
 
 def main(args):
-    save_folder = f"results_{datetime.now().strftime('%Y-%m-%d_%H-%M')}"
+    save_folder = f"results_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
     os.makedirs(save_folder)
     env = Model()
     learners = [QLearner(env, q_values=args.q_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder), DoubleQLearner(env, q_values=args.dq_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder), TripleQLearner(env, q_values=args.tq_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder), QuadrupleQLearner(env, q_values=args.qq_values, alpha=args.alpha, epsilon=args.epsilon, save_folder=save_folder)]
