@@ -32,6 +32,12 @@ class QLearner:
         with open(f'{self.algo_name.replace(' ', '_').lower()}_steps.csv', 'a') as f:
             f.write(f"{steps}\n")
 
+    def decay_epsilon(self):
+        new_epsilon = self.epsilon * self.epsilon_decay
+        if new_epsilon < 0.05:
+            new_epsilon = 0.05
+        self.epsilon = new_epsilon
+
     def train(self, episodes):
         save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
         rewards = []
@@ -54,7 +60,7 @@ class QLearner:
             rewards.append(total_reward)
             steps.append(steps_taken)
 
-            self.epsilon *= self.epsilon_decay
+            self.decay_epsilon()
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
@@ -111,7 +117,7 @@ class DoubleQLearner(QLearner):
             rewards.append(total_reward)
             steps.append(steps_taken)
 
-            self.epsilon *= self.epsilon_decay
+            self.decay_epsilon()
             
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
@@ -176,7 +182,7 @@ class TripleQLearner(DoubleQLearner):
             rewards.append(total_reward)
             steps.append(steps_taken)
 
-            self.epsilon *= self.epsilon_decay
+            self.decay_epsilon()
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
@@ -243,7 +249,7 @@ class QuadrupleQLearner(TripleQLearner):
             rewards.append(total_reward)
             steps.append(steps_taken)
 
-            self.epsilon *= self.epsilon_decay
+            self.decay_epsilon()
 
             if i % 100 == 0:
                 print(f"Episode {i} completed.")
