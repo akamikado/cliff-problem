@@ -49,6 +49,8 @@ class QLearner:
 
     def train(self, episodes):
         save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
+        if self.save_folder:
+            save_file_name = f"{self.save_folder}/{save_file_name}"
         rewards = []
         steps = []
 
@@ -106,6 +108,8 @@ class DoubleQLearner(QLearner):
 
     def train(self, episodes):
         save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
+        if self.save_folder:
+            save_file_name = f"{self.save_folder}/{save_file_name}"
         rewards = []
         steps = []
 
@@ -171,6 +175,8 @@ class TripleQLearner(DoubleQLearner):
 
     def train(self, episodes):
         save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
+        if self.save_folder:
+            save_file_name = f"{self.save_folder}/{save_file_name}"
         rewards = []
         steps = []
 
@@ -238,6 +244,8 @@ class QuadrupleQLearner(TripleQLearner):
 
     def train(self, episodes):
         save_file_name = "q_values_" + self.algo_name.replace(' ', '_').lower()
+        if self.save_folder:
+            save_file_name = f"{self.save_folder}/{save_file_name}"
         rewards = []
         steps = []
 
