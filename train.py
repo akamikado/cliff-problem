@@ -8,7 +8,7 @@ import argparse
 
 def main(args):
     env = Model()
-    learners = [QLearner(env, q_values=args.q_values, alpha=args.alpha), DoubleQLearner(env, q_values=args.dq_values, alpha=args.alpha), TripleQLearner(env, q_values=args.tq_values, alpha=args.alpha), QuadrupleQLearner(env, q_values=args.qq_values, alpha=args.alpha)]
+    learners = [QLearner(env, q_values=args.q_values, alpha=args.alpha, epsilon=args.epsilon), DoubleQLearner(env, q_values=args.dq_values, alpha=args.alpha, epsilon=args.epsilon), TripleQLearner(env, q_values=args.tq_values, alpha=args.alpha, epsilon=args.epsilon), QuadrupleQLearner(env, q_values=args.qq_values, alpha=args.alpha, epsilon=args.epsilon)]
 
     episodes = args.episodes
 
@@ -41,7 +41,8 @@ if __name__ == "__main__":
     parser.add_argument('--dq-values', type=str, default=None, help='Number of Q values to use for DoubleQLearner')
     parser.add_argument('--tq-values', type=str, default=None, help='Number of Q values to use for TripleQLearner')
     parser.add_argument('--qq-values', type=str, default=None, help='Number of Q values to use for QuadrupleQLearner')
-    parser.add_argument('--alpha', type=float, default=0.1, help='Whether to plot the results')
+    parser.add_argument('--alpha', type=float, default=0.1, help='Alpha value')
+    parser.add_argument('--epsilon', type=float, default=0.1, help='Epsilon value')
 
     args = parser.parse_args()
 
