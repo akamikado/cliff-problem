@@ -8,7 +8,7 @@ class Model:
     left = {'x': 0, 'y': -1}
     right = {'x': 0, 'y': 1}
 
-    def __init__(self, cols=100, rows=15):
+    def __init__(self, cols=100, rows=20):
         self.rows = rows
         self.cols = cols
         self.grid = np.zeros((cols, rows))
@@ -18,7 +18,7 @@ class Model:
             self.bottom_cliff.add((i, 0))
             self.top_cliff.add((i, rows-1))
         self.goal = random.choice([(i, j) for j in range(rows) for i in range(cols-2, cols)])
-        self.agent_pos = random.choice([(i, j) for j in range(rows) for i in range(0, 2)])
+        self.agent_pos = (0, rows// 2)
         self.agent_dist = math.sqrt((self.agent_pos[0]-self.goal[0])**2 + (self.agent_pos[1]-self.goal[1])**2)
 
     def get_actions(self):
@@ -89,7 +89,7 @@ class Model:
 
     def reset(self):
         self.goal = random.choice([(i, j) for j in range(self.rows) for i in range(self.cols-2, self.cols)])
-        self.agent_pos = random.choice([(i, j) for j in range(self.rows) for i in range(0, 2)])
+        self.agent_pos = (0, self.rows//2)
         self.agent_dist = math.sqrt((self.agent_pos[0]-self.goal[0])**2 + (self.agent_pos[1]-self.goal[1])**2)
         self.top_cliff = set()
         self.bottom_cliff = set()

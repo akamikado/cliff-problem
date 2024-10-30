@@ -74,7 +74,7 @@ class QLearner:
             self.decay_epsilon()
 
             if i % 100 == 0:
-                print(f"Episode {i} completed.")
+                print(f"{self.algo_name}: Episode {i} completed.")
 
             self.save_episode_rewards(total_reward)
             self.save_episode_steps(steps_taken)
@@ -133,7 +133,7 @@ class DoubleQLearner(QLearner):
             self.decay_epsilon()
             
             if i % 100 == 0:
-                print(f"Episode {i} completed.")
+                print(f"{self.algo_name}: Episode {i} completed.")
 
             self.save_episode_rewards(total_reward)
             self.save_episode_steps(steps_taken)
@@ -200,7 +200,7 @@ class TripleQLearner(DoubleQLearner):
             self.decay_epsilon()
 
             if i % 100 == 0:
-                print(f"Episode {i} completed.")
+                print(f"{self.algo_name}: Episode {i} completed.")
 
             self.save_episode_rewards(total_reward)
             self.save_episode_steps(steps_taken)
@@ -269,7 +269,7 @@ class QuadrupleQLearner(TripleQLearner):
             self.decay_epsilon()
 
             if i % 100 == 0:
-                print(f"Episode {i} completed.")
+                print(f"{self.algo_name}: Episode {i} completed.")
 
             self.save_episode_rewards(total_reward)
             self.save_episode_steps(steps_taken)
